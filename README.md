@@ -29,5 +29,5 @@ If the authentication requests is denied or times out, the startup script throws
 I'll make this if enough people express interest in it :)
 
 ## Thanks
-Thanks to @mattifestation for all-around wizardry with PowerShell/JEA and for helping to review some of my work.
+Thanks to @mattifestation for all-around wizardry with PowerShell/JEA and for helping to review some of my work.  
 Thanks to @nocow4bob for reviewing the content of this release before it was published.
