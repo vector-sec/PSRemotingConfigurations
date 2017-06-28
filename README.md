@@ -4,7 +4,7 @@ This project is largely just a brain dump of ideas that I had for making interes
 
 You can read a brief summary of each configuration below, or head straight into the code of the repository to get more information.
 
-Feedback is always welcome!
+[Feedback is always welcome!](https://twitter.com/vector_sec)
 
 ## Dynamic Module Session Configuration
 
