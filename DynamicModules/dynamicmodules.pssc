@@ -1,0 +1,19 @@
+@{
+	SchemaVersion = '2.0.0.0'
+	GUID = 'b560cee0-3e3b-47a4-8a33-f16bd8932f2b'
+	Author = '@vector_sec'
+	Description = 'PSSC to dynamically load PowerShell modules from a trusted network location.'
+	SessionType = 'RestrictedRemoteServer'
+	LanguageMode = 'NoLanguage'
+	ScriptsToProcess = 'C:\PowerShellRemoting\dynamicmodulesstartup.ps1'
+	VisibleCmdlets=''
+	VisibleFunctions = ''
+	VisibleExternalCommands = ''
+	VisibleAliases = ''
+	VisibleProviders = ''
+	#See https://powershell.org/forums/topic/jea-restrictedremoteserver-and-select-object-unusable/
+	AliasDefinitions = @{
+    Name='Select-Object'
+    Value='Microsoft.PowerShell.Utility\Select-Object'
+	}
+}
