@@ -1,4 +1,4 @@
-# Dynamic Module Session Configuration
+# Multifactor Session Configuration (Duo)
 Standby for repetition of the description from the root of the repository.
 
 This example is a largely unconfigured PSSession Configuration file aimed at demonstrating advanced logic opporuntities in the PSSC's startup script, such as multi-factor authentication with 3rd party platforms.
@@ -11,7 +11,7 @@ If the authentication requests is denied or times out, the startup script throws
 
 # Full Documentation
 
-## Elements of Dynamic Module
+## Elements of Multifactor Configuration (Duo)
 
 ### multifactorstartupscript.ps1
 This is the PowerShell script used as a startup script for multifactor authentication
@@ -51,11 +51,14 @@ Assuming you have PSRemoting already enabled and want to modify the default PSSe
 Note:
 * If you need help getting PSRemoting up and running, feel free to reach out to me on Twitter!
 * If you don't want to modify the default config, you can use this script with any JEA config in the ScriptsToProcess option
+
+![](../images/mfainstall.PNG)
+
 ## Usage
 You can initiate a connection with the following commands
 
     $sessionOptions = New-PSSessionOption -ApplicationArguments @{"Key"="IrHE8xkW5dKAHz9IjZByi1gknhhTM3AswQX2z0T7"}
-    New-PSSession -ComputerName 127.0.0.1 -SessionOption $sessionOptions
+    New-PSSession -ComputerName <YOUR COMPUTER NAME/IP> -SessionOption $sessionOptions
 
 This one isn't quite as simple as the command for installation, so let me explain what this is actually doing.
 
@@ -69,5 +72,4 @@ The screenshot below shows two attempts at connecting.
 In the first I denied the Duo push request on my phone, resulting in the "Access Denied" error being thrown and the PSSession failing to initialize.  
 In the second attempt, I approved the Duo push request, resulting in the PSSession initializing sucessfully.
 
-# Closing thoughts
-
+![](../images/mfausage.PNG)

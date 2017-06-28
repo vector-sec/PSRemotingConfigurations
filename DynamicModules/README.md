@@ -14,7 +14,7 @@ This configuration is perfect for allowing multiple use-cases for PSRemoting wit
 ### dynamicmodule.pssc
 This is the JEA configuration for this PSSession Configuration. It is fairly basic in functionality.
 
-Important propeties of this configuration are:
+Important properties of this configuration are:
 
 * Language mode is NoLanguage
 * No cmdlets, scripts, programs, etc are visible to the runspace
@@ -36,6 +36,13 @@ Important properties of this script are:
     * Public key of the chain certificate you wish to pin against - line 10
 * This script accepts user input during session creation in the variable $PSSenderInfo.ApplicationArguments.PSMName (more on this in usage section)
 
+The trusted host running your modules needs to be running a webserver with HTTPS. I highly recommend creating a folder on the server for your PowerShell modules.  
+
+For example, say your domain is server.mysite.com, I would create a folder called modules and place each psm1 file into the folder.
+
+Then I would define my trusted host on line 4 as:
+
+    $url = "https://server.mysite.com/modules/$($PSSenderInfo.ApplicationArguments.PSMName).psm1"
 
 ## Installation
 
@@ -55,6 +62,8 @@ Assuming you have PSRemoting already enabled you simply run
 
     Register-PSSessionConfiguration -Name DynamicModule -Path dynamicmodules.pssc
 
+![](../images/dynamicmoduleinstall.png)
+
 Doesn't get much simplier than that huh? :)
 
 Note: If you need help getting PSRemoting up and running, feel free to reach out to me on Twitter!
@@ -62,7 +71,7 @@ Note: If you need help getting PSRemoting up and running, feel free to reach out
 You can initiate a connection with the following commands
 
     $sessionOptions = New-PSSessionOption -ApplicationArguments @{"PSMName"="ExampleModule"}
-    New-PSSession -ComputerName 127.0.0.1 -ConfigurationName DynamicModule -SessionOption $sessionOptions
+    New-PSSession -ComputerName <YOUR COMPUTER NAME/IP> -ConfigurationName DynamicModule -SessionOption $sessionOptions
 
 This one isn't quite as simple as the command for installation, so let me explain what this is actually doing.
 
@@ -71,11 +80,16 @@ This one isn't quite as simple as the command for installation, so let me explai
 -SessionOption passes advanced options to the remote machine, an exhausive list is available on [MSDN](https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.core/new-pssessionoption) but we're really only interested in ApplicationArguments for our example  
 -ApplicationArguments let's you specify, via a hashtable, arbitrary values that will be passed to the remote endpoint, accessible in scripts under $PSSenderInfo.ApplicationArguments.<HashTableKey>  
 
+![](../images/dynamicmoduleusage.png)
+
 # Closing thoughts
 
 So as mentioned in the beginning of this doc, we're operating in NoLanguage mode, which means we can't do much of anything in our runspace.
+
+![](../images/dynamicmodulenlm.PNG)
 
 The good news is, our startup script and any modules imported by it operate in FullLanguage mode. Consider my [example module](https://gist.github.com/vector-sec/cbf51f4eac42e29dffe03b12a84c7453)
 
 The function Get-WebPage uses a dotNet type, System.Net.Webclient, to perform a download. Even though we just tried to use this type ourselves without success, the function won't have any trouble.
 
+![](../images/dynamicmodulegwp.png)

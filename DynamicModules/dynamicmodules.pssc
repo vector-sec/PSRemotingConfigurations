@@ -12,8 +12,8 @@
 	VisibleAliases = ''
 	VisibleProviders = ''
 	#See https://powershell.org/forums/topic/jea-restrictedremoteserver-and-select-object-unusable/
-	AliasDefinitions = @{
-    Name='Select-Object'
-    Value='Microsoft.PowerShell.Utility\Select-Object'
-	}
+    AliasDefinitions = @{
+        Name='Select-Object'
+        Value='Microsoft.PowerShell.Utility\Select-Object'
+    }
 }
